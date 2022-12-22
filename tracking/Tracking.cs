@@ -55,7 +55,7 @@ namespace tracking
         private int batery;
         private string course;
         #endregion
-        
+
         #region PROPIEDADES
         public string Token
         {
@@ -205,32 +205,74 @@ namespace tracking
         {
             if (e.RowIndex != -1)
             {
-                TrackingInfo trackingInfo = new TrackingInfo()
+                try
                 {
-                    supply_chain_id = Convert.ToInt64(dgvTracking.Rows[e.RowIndex].Cells["supply_chain_id"].Value),
-                    id = Convert.ToInt64(dgvTracking.Rows[e.RowIndex].Cells["id"].Value),
-                    plante = dgvTracking.Rows[e.RowIndex].Cells["plante"].Value.ToString(),
-                    shipment = dgvTracking.Rows[e.RowIndex].Cells["shipment"].Value.ToString(),
-                    transline_name = dgvTracking.Rows[e.RowIndex].Cells["transline_name"].Value.ToString(),
-                    transline_id = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["transline_id"].Value),
-                    legacy_code = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["legacy_code"].Value),
-                    timezone = dgvTracking.Rows[e.RowIndex].Cells["timezone"].Value.ToString(),
-                    latitude = Convert.ToDouble(dgvTracking.Rows[e.RowIndex].Cells["latitude"].Value),
-                    longitude = Convert.ToDouble(dgvTracking.Rows[e.RowIndex].Cells["longitude"].Value),
-                    speed = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["speed"].Value),
-                    distance_to_route = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["distance_to_route"].Value),
-                    distance_to_end_route = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["distance_to_end_route"].Value),
-                    odometer = dgvTracking.Rows[e.RowIndex].Cells["odometer"].Value.ToString(),
-                    code = dgvTracking.Rows[e.RowIndex].Cells["code"].Value.ToString(),
-                    altitude = dgvTracking.Rows[e.RowIndex].Cells["altitude"].Value.ToString(),
-                    ignition = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["ignition"].Value),
-                    batery = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["batery"].Value),
-                    course = dgvTracking.Rows[e.RowIndex].Cells["course"].Value.ToString(),
-                };
-                InfoTracking info = new InfoTracking(trackingInfo);
-                info.Show();
+                    TrackingInfo trackingInfo = new TrackingInfo()
+                    {
+                        supply_chain_id = Convert.ToInt64(dgvTracking.Rows[e.RowIndex].Cells["supply_chain_id"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["supply_chain_id"].Value),
+                        id = Convert.ToInt64(dgvTracking.Rows[e.RowIndex].Cells["id"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["id"].Value),
+                        plante = dgvTracking.Rows[e.RowIndex].Cells["plante"].Value.ToString(),
+                        shipment = dgvTracking.Rows[e.RowIndex].Cells["shipment"].Value.ToString(),
+                        transline_name = dgvTracking.Rows[e.RowIndex].Cells["transline_name"].Value.ToString(),
+                        transline_id = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["transline_id"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["transline_id"].Value),
+                        legacy_code = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["legacy_code"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["legacy_code"].Value),
+                        timezone = dgvTracking.Rows[e.RowIndex].Cells["timezone"].Value.ToString(),
+                        latitude = Convert.ToDouble(dgvTracking.Rows[e.RowIndex].Cells["latitude"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["latitude"].Value),
+                        longitude = Convert.ToDouble(dgvTracking.Rows[e.RowIndex].Cells["longitude"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["longitude"].Value),
+                        speed = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["speed"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["speed"].Value),
+                        distance_to_route = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["distance_to_route"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["distance_to_route"].Value),
+                        distance_to_end_route = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["distance_to_end_route"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["distance_to_end_route"].Value),
+                        odometer = dgvTracking.Rows[e.RowIndex].Cells["odometer"].Value.ToString(),
+                        code = dgvTracking.Rows[e.RowIndex].Cells["code"].Value.ToString(),
+                        altitude = dgvTracking.Rows[e.RowIndex].Cells["altitude"].Value.ToString(),
+                        ignition = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["ignition"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["ignition"].Value),
+                        batery = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["batery"].Value == DBNull.Value ? 0 : dgvTracking.Rows[e.RowIndex].Cells["batery"].Value),
+                        course = dgvTracking.Rows[e.RowIndex].Cells["course"].Value.ToString(),
+                    };
+                    InfoTracking info = new InfoTracking(trackingInfo);
+                    info.Show();
+                }
+                catch (Exception)
+                {
+                }
+                
+                
             }
         }
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            StringBuilder filtro = new StringBuilder();
+            if (txtBuscar.Text != "")
+            {
+                
+                for (int i = 0; i < dgvTracking.Columns.Count; i++)
+                {
+                    if (string.IsNullOrEmpty(filtro.ToString()))
+                    {
+                        filtro.Append($"convert({dgvTracking.Columns[i].Name}, 'System.String') LIKE '%{txtBuscar.Text}%'");
+                    }
+                    else
+                    {
+                        filtro.Append(" OR ");
+                        filtro.Append($"convert({dgvTracking.Columns[i].Name}, 'System.String') LIKE '%{txtBuscar.Text}%'");
+                    }
+                }
+                
+            }
+            //Filtramos el DataTable para mostrar en el DGV los resultados de la búsqueda.
+            try
+            {
+                (dgvTracking.DataSource as DataTable).DefaultView.RowFilter = filtro.ToString();
+            }
+            catch (Exception)
+            {
+            }
+                 
+
+            dgvTracking.Refresh();
+        }
         #endregion
+
+
     }
 }

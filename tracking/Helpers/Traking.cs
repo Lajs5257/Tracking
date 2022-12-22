@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -52,7 +53,7 @@ namespace tracking.Helpers
                         {
                             string data = await content.ReadAsStringAsync();
                             if (data != null)
-                                oReply.Data = JsonConvert.DeserializeObject<T>(data);
+                                oReply.Data = JsonConvert.DeserializeObject<DataTable>(data);
 
                             oReply.StatusCode = res.StatusCode.ToString();
                         }
