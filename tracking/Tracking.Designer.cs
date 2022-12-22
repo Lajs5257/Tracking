@@ -420,11 +420,15 @@ namespace tracking
             // 
             // dgvTracking
             // 
+            this.dgvTracking.AllowUserToAddRows = false;
+            this.dgvTracking.AllowUserToDeleteRows = false;
+            this.dgvTracking.AllowUserToOrderColumns = true;
             this.dgvTracking.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvTracking.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTracking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTracking.Location = new System.Drawing.Point(23, 285);
             this.dgvTracking.Name = "dgvTracking";
+            this.dgvTracking.ReadOnly = true;
             this.dgvTracking.RowHeadersWidth = 62;
             this.dgvTracking.RowTemplate.Height = 33;
             this.dgvTracking.Size = new System.Drawing.Size(1456, 335);

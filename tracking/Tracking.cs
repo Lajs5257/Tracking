@@ -227,6 +227,8 @@ namespace tracking
                     batery = Convert.ToInt32(dgvTracking.Rows[e.RowIndex].Cells["batery"].Value),
                     course = dgvTracking.Rows[e.RowIndex].Cells["course"].Value.ToString(),
                 };
+                InfoTracking info = new InfoTracking(trackingInfo);
+                info.Show();
             }
         }
         #endregion
