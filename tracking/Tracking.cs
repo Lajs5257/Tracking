@@ -13,27 +13,7 @@ using tracking.Helpers;
 namespace tracking
 {
     public partial class Tracking : Form
-    {/*
-         public long? supply_chain_id { get; set; }
-        public long? id { get; set; }
-        public string? plante { get; set; }
-        public string? shipment { get; set; }
-        public string? transline_name { get; set; }
-        public int? transline_id { get; set; }
-        public int? legacy_code { get; set; }
-        public string? timezone { get; set; }
-        public double? latitude { get; set; }
-        public double? longitude { get; set; }
-        public int? speed { get; set; }
-        public int? distance_to_route { get; set; }
-        public int? distance_to_end_route { get; set; }
-        public string? odometer { get; set; }
-        public string? code { get; set; }
-        public string? altitude { get; set; }
-        public int? ignition { get; set; }
-        public int? batery { get; set; }
-        public string? course { get; set; }
-         */
+    {
         #region VARIABLES PRIVADAS
         private long supply_chain_id;
         private long id;
@@ -77,96 +57,6 @@ namespace tracking
             get { return dtpFinal.Value; }
             set { dtpFinal.Value = value; }
         }
-        public long SupplyChainId
-        {
-            get { return supply_chain_id; }
-            set { supply_chain_id = value; }
-        }
-        public long Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-        public string Plante
-        {
-            get { return plante; }
-            set { plante = value; }
-        }
-        public string TranslineName
-        {
-            get { return transline_name; }
-            set { transline_name = value; }
-        }
-        public int TranslineId
-        {
-            get { return transline_id; }
-            set { transline_id = value; }
-        }
-        public int LegacyCode
-        {
-            get { return legacy_code; }
-            set { legacy_code = value; }
-        }
-        public string Timezone
-        {
-            get { return timezone; }
-            set { timezone = value; }
-        }
-        public double Latitude
-        {
-            get { return latitude; }
-            set { latitude = value; }
-        }
-        public double Longitude
-        {
-            get { return longitude; }
-            set { longitude = value; }
-        }
-        public int Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
-        public int DistanceToRoute
-        {
-            get { return distance_to_route; }
-            set { distance_to_route = value; }
-        }
-        public int DistanceToEndRoute
-        {
-            get { return distance_to_end_route; }
-            set { distance_to_end_route = value; }
-        }
-        public string Odometer
-        {
-            get { return odometer; }
-            set { odometer = value; }
-        }
-        public string Code
-        {
-            get { return code; }
-            set { code = value; }
-        }
-        public string Altitude
-        {
-            get { return altitude; }
-            set { altitude = value; }
-        }
-        public int Ignition
-        {
-            get { return ignition; }
-            set { ignition = value; }
-        }
-        public int Batery
-        {
-            get { return batery; }
-            set { batery = value; }
-        }
-        public string Course
-        {
-            get { return course; }
-            set { course = value; }
-        }
         #endregion
         #region CONSTRUCTOR
         public Tracking()
@@ -198,6 +88,7 @@ namespace tracking
             tlpBusqueda.Visible = oReply.Data != null ? true : false;
 
             //Mostramos el statuscode devuelto, podemos añadirle lógica de validación
+            
             MessageBox.Show(oReply.StatusCode);
 
         }
@@ -234,9 +125,7 @@ namespace tracking
                 }
                 catch (Exception)
                 {
-                }
-                
-                
+                }                           
             }
         }
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -267,12 +156,8 @@ namespace tracking
             catch (Exception)
             {
             }
-                 
-
             dgvTracking.Refresh();
         }
         #endregion
-
-
     }
 }
